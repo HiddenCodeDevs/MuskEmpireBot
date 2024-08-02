@@ -5,10 +5,11 @@
 > 🇷🇺 README на русском доступен [здесь](README-RU.md)
 
 ## Functionality
-| Feature                               | Supported  |
-|---------------------------------------|:----------:|
+| Feature                               | Supported |
+|---------------------------------------|:---------:|
 | Multithreading                        |     ✅     |
 | Binding a proxy to a session          |     ✅     |
+| Auto referring alts                   |     ✅     |
 | Sleep before run each session         |     ✅     |
 | Claim daily grant                     |     ✅     |
 | Claim reward for friends              |     ✅     |
@@ -21,19 +22,20 @@
 | Docker                                |     ✅     |
 
 ## [Options](https://github.com/Alexell/MuskEmpireBot/blob/main/.env-example)
-| Option                  | Description                                                       |
-|-------------------------|-------------------------------------------------------------------|
-| **API_ID / API_HASH**   | Platform data for launching a Telegram session                    |
-| **TAPS_ENABLED**        | Taps enabled (True / False)                                       |
-| **TAPS_PER_SECOND**     | Random number of taps per second (e.g. [20,30], max. 30)          |
-| **PVP_ENABLED**         | PvP negotiations enabled (True / False)                           |
-| **PVP_LEAGUE**          | League in negotiations (e.g. bronze)                              |
-| **PVP_STRATEGY**        | Strategy in negotiations (e.g. random)                            |
-| **PVP_COUNT**           | Number of negotiations per cycle (e.g. 10)                        |
-| **INVEST_AMOUNT**       | Amount to invest in funds (e.g. 1400000)                          |
-| **SLEEP_BETWEEN_START** | Sleep before start each session (e.g. [20, 360])                  |
-| **ERRORS_BEFORE_STOP**  | The number of failed requests after which the bot will stop       |
-| **USE_PROXY_FROM_FILE** | Whether to use proxy from the `proxies.txt` file (True / False)   |
+| Option                  | Description                                                          |
+|-------------------------|----------------------------------------------------------------------|
+| **API_ID / API_HASH**   | Platform data for launching a Telegram session                       |
+| **REF_ID**              | Your referral argument for referring alt accounts (after ?startapp=) |
+| **TAPS_ENABLED**        | Taps enabled (True / False)                                          |
+| **TAPS_PER_SECOND**     | Random number of taps per second (e.g. [20,30], max. 30)             |
+| **PVP_ENABLED**         | PvP negotiations enabled (True / False)                              |
+| **PVP_LEAGUE**          | League in negotiations (e.g. bronze)                                 |
+| **PVP_STRATEGY**        | Strategy in negotiations (e.g. random)                               |
+| **PVP_COUNT**           | Number of negotiations per cycle (e.g. 10)                           |
+| **INVEST_AMOUNT**       | Amount to invest in funds (e.g. 1400000)                             |
+| **SLEEP_BETWEEN_START** | Sleep before start each session (e.g. [20, 360])                     |
+| **ERRORS_BEFORE_STOP**  | The number of failed requests after which the bot will stop          |
+| **USE_PROXY_FROM_FILE** | Whether to use proxy from the `proxies.txt` file (True / False)      |
 
 You can obtain the **API_ID** and **API_HASH** after creating an application at [my.telegram.org/apps](https://my.telegram.org/apps)
 
@@ -61,15 +63,15 @@ $ nano .env # specify your API_ID and API_HASH, the rest can be left as default
 ```
 ### Docker Compose (recommended)
 ```
-$ docker-compose run bot -a 1 # first run for authorization (override arguments)
-$ docker-compose start # start in background mode (default arguments: -a 2)
+$ docker-compose run bot -a 2 # first run for authorization (override arguments)
+$ docker-compose start # start in background mode (default arguments: -a 1)
 ```
 ### Docker
 ```
 $ docker build -t muskempire_bot .
-$ docker run --name MuskEmpireBot -v .:/app -it muskempire_bot -a 1 # first run for authorization
+$ docker run --name MuskEmpireBot -v .:/app -it muskempire_bot -a 2 # first run for authorization
 $ docker rm MuskEmpireBot # remove container to recreate with default arguments
-$ docker run -d --restart unless-stopped --name MuskEmpireBot -v .:/app muskempire_bot # start in background mode (default arguments: -a 2)
+$ docker run -d --restart unless-stopped --name MuskEmpireBot -v .:/app muskempire_bot # start in background mode (default arguments: -a 1)
 ```
 
 ## Manual installation
@@ -101,8 +103,8 @@ $ python3 main.py --action (1/2)
 # or
 $ python3 main.py -a (1/2)
 
-# 1 - Create session
-# 2 - Run bot
+# 1 - Run bot
+# 2 - Create session
 ```
 
 ## Running a bot in the background (Linux)
@@ -110,10 +112,10 @@ $ python3 main.py -a (1/2)
 $ cd MuskEmpireBot
 
 # with logging
-$ setsid venv/bin/python3 main.py --action 2 >> app.log 2>&1 &
+$ setsid venv/bin/python3 main.py --action 1 >> app.log 2>&1 &
 
 # without logging
-$ setsid venv/bin/python3 main.py --action 2 > /dev/null 2>&1 &
+$ setsid venv/bin/python3 main.py --action 1 > /dev/null 2>&1 &
 
 # Now you can close the console, and the bot will continue its work.
 ```

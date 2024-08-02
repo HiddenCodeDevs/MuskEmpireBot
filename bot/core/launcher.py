@@ -99,8 +99,8 @@ async def start() -> None:
 				break
 			log.warning("Action must be a number (1 or 2)")
 
-	if action == 1:
+	if action == 2:
 		await register_sessions()
-	elif action == 2:
+	elif action == 1:
 		tg_clients = await get_tg_clients()
 		await run_clients(tg_clients=tg_clients)
