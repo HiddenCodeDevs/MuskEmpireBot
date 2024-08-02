@@ -10,8 +10,8 @@ from bot.core.bot import run_bot
 
 start_text = logo + """
 Select an action:
-    1. Create session
-    2. Run bot
+    1. Run bot
+    2. Create session
 """
 
 def get_session_names() -> list[str]:
