@@ -109,3 +109,7 @@ Thumbs.db
 
 # Virtual Studio Code, more commonly
 .vs/
+
+*.session
+
+sessions/
