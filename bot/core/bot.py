@@ -112,7 +112,7 @@ class CryptoBot:
             log.info(f"{self.session_name} | Trying to login...")
             self.http_client.headers['Api-Key'] = 'empty'
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -140,7 +140,7 @@ class CryptoBot:
         try:
             json_data = {'data': {'dbs': ['all']}}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -159,7 +159,7 @@ class CryptoBot:
         try:
             json_data = {'data': {}} if full else {}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             return response_json
@@ -174,7 +174,7 @@ class CryptoBot:
         try:
             json_data = {}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -197,7 +197,7 @@ class CryptoBot:
         try:
             json_data = {'data': f"{index}"}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -218,7 +218,7 @@ class CryptoBot:
         try:
             json_data = {'data': [quest, code]}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -239,7 +239,7 @@ class CryptoBot:
         try:
             json_data = {'data': {'quest': quest, 'code': code}}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -260,7 +260,7 @@ class CryptoBot:
         try:
             json_data = {}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -284,7 +284,7 @@ class CryptoBot:
         try:
             json_data = {'data': [quest, code]}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             if response_json.get('success', False) and response_json['data'].get('result', False):
@@ -301,7 +301,7 @@ class CryptoBot:
         try:
             json_data = {'data': friend}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
@@ -334,7 +334,7 @@ class CryptoBot:
                 json_data = {
                     'data': {'data': {'task': {'amount': earned_money, 'currentEnergy': energy}}, 'seconds': seconds}}
                 await self.set_sign_headers(data=json_data)
-                response = await self.http_client.post(url, json=json_data)
+                response = await self.http_client.post(url, json=json_data, ssl=False)
                 response.raise_for_status()
                 response_json = await response.json()
                 success = response_json.get('success', False)
@@ -426,7 +426,7 @@ class CryptoBot:
 
     async def get_helper(self) -> Dict[str, Any]:
         url = 'https://alexell.ru/crypto/musk-empire/data.json'
-        response = await self.http_client.get(url)
+        response = await self.http_client.get(url, ssl=False)
         if response.status == 200:
             response_json = await response.json()
             return response_json
@@ -438,7 +438,7 @@ class CryptoBot:
         try:
             json_data = {}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             return response_json['data']
@@ -507,7 +507,7 @@ class CryptoBot:
         try:
             json_data = {'data': {'fund': fund, 'money': amount}}
             await self.set_sign_headers(data=json_data)
-            response = await self.http_client.post(url, json=json_data)
+            response = await self.http_client.post(url, json=json_data, ssl=False)
             response.raise_for_status()
             response_json = await response.json()
             success = response_json.get('success', False)
