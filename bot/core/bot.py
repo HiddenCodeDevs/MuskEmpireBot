@@ -1,9 +1,15 @@
-import asyncio, aiohttp, random, math, json, hashlib
-from time import time
-from zoneinfo import ZoneInfo
+import aiohttp
+import asyncio
+import hashlib
+import json
+import math
+import random
 from datetime import datetime
-from urllib.parse import unquote, quote
+from time import time
 from typing import Any, Dict
+from urllib.parse import unquote, quote
+from zoneinfo import ZoneInfo
+
 from aiohttp_proxy import ProxyConnector
 from better_proxy import Proxy
 from pyrogram import Client
@@ -260,12 +266,13 @@ class CryptoBot:
             success = response_json.get('success', False)
             if success:
                 for name, quest in response_json['data'].items():
-                    if 'youtube' in name: continue
+                    if 'youtube' in name:
+                        continue
                     if 'quiz' in name:
-                        if quest['isRewarded'] == False:
+                        if quest['isRewarded'] is False:
                             self.need_quiz = True
                         continue
-                    if quest['isComplete'] == True and quest['isRewarded'] == False:
+                    if quest['isComplete'] is True and quest['isRewarded'] is False:
                         if await self.daily_quest_reward(quest=name):
                             log.success(f"{self.session_name} | Reward for daily quest {name} claimed")
         except Exception as error:
@@ -360,7 +367,8 @@ class CryptoBot:
                 log.info(f"{self.session_name} | PvP negotiations stopped (not enough money). {money_str}")
                 break
 
-            if strategy == 'random': curent_strategy = random.choice(self.strategies)
+            if strategy == 'random':
+                curent_strategy = random.choice(self.strategies)
             log.info(f"{self.session_name} | Searching opponent...")
             try:
                 json_data = {'data': {'league': league['key'], 'strategy': curent_strategy}}
@@ -550,7 +558,8 @@ class CryptoBot:
                             self.http_client.headers['Api-Key'] = self.api_key
                             self.dbs = await self.get_dbs()
                             full_profile = await self.get_profile(full=True)
-                            if self.user_id is None: self.user_id = int(full_profile['data']['profile']['id'])
+                            if self.user_id is None:
+                                self.user_id = int(full_profile['data']['profile']['id'])
                             self.balance = int(full_profile['data']['hero']['money'])
                             self.level = int(full_profile['data']['hero']['level'])
                             self.mph = int(full_profile['data']['hero']['moneyPerHour'])
@@ -617,7 +626,7 @@ class CryptoBot:
                             for league in self.dbs['dbNegotiationsLeague']:
                                 if league['key'] == config.PVP_LEAGUE:
                                     league_data = league
-                                    break;
+                                    break
 
                             if league_data is not None:
                                 if self.level >= int(league_data['requiredLevel']):
