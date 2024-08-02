@@ -529,7 +529,7 @@ class CryptoBot:
 
     async def check_proxy(self, proxy: Proxy) -> None:
         try:
-            response = await self.http_client.get(url='https://httpbin.org/ip', timeout=aiohttp.ClientTimeout(5))
+            response = await self.http_client.get(url='https://httpbin.org/ip', timeout=aiohttp.ClientTimeout(45))
             ip = (await response.json()).get('origin')
             log.info(f"{self.session_name} | Proxy IP: {ip}")
         except Exception as error:
